@@ -24,11 +24,7 @@ public class QuestionControllerService {
         elasticsearchRequest.setIndexName(Constants.INDEX_NAME);
         elasticsearchRequest.setFrom(from);
         elasticsearchRequest.setSize(size);
-        if(searchText==null) {
-            elasticsearchRequest.setQuery(elasticsearchQueryBuilder.getMatchAllQuery());
-        } else {
-            elasticsearchRequest.setQuery(elasticsearchQueryBuilder.getTextMatchQuery(searchText));
-        }
+        elasticsearchRequest.setQuery(elasticsearchQueryBuilder.getPostSearchQuery(searchText));
         return this.elasticsearchService.search(elasticsearchRequest);
     }
 
