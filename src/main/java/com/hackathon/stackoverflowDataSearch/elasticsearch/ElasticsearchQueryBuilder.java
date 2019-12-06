@@ -13,6 +13,7 @@ public class ElasticsearchQueryBuilder {
     public QueryBuilder getPostSearchQuery(String searchText){
         BoolQueryBuilder boolQueryBuilder = new BoolQueryBuilder();
         boolQueryBuilder.must(QueryBuilders.existsQuery("doc.Title"));
+        boolQueryBuilder.must(QueryBuilders.existsQuery("doc.OwnerDisplayName"));
         if(searchText!=null){
             boolQueryBuilder.must(getTextMatchQuery(searchText));
         }

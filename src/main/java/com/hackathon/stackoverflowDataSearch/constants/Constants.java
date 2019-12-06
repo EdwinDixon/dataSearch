@@ -16,4 +16,6 @@ public class Constants {
 
     public static final String INTEGER_PARSING_EXCEPTION = "Not able to parse integer from configuration file";
 
+    public static final int DATA_SEARCH_EXCEPTION_STATUS_CODE=500;
+
 }

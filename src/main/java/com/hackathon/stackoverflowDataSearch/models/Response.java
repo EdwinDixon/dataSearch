@@ -11,6 +11,27 @@ public class Response {
     private long total;
     @JsonProperty("data")
     private List<Map<String,Object>> data = new ArrayList<>();
+    @JsonProperty("statusCode")
+    private int statusCode;
+    @JsonProperty("message")
+    private String message;
+
+
+    public int getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(int statusCode) {
+        this.statusCode = statusCode;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     public long getTotal() {
         return total;

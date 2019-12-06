@@ -21,8 +21,10 @@ public class QuestionsController {
             QuestionControllerService questionControllerService = new QuestionControllerService();
             return questionControllerService.listQuestions(from, size,searchText);
         } catch(DataSearchException dataSearchException){
-            System.out.println(dataSearchException);
+            Response response = new Response();
+            response.setMessage(dataSearchException.getMessage());
+            response.setStatusCode(Constants.DATA_SEARCH_EXCEPTION_STATUS_CODE);
+            return response;
         }
-        return null;
     }
 }
