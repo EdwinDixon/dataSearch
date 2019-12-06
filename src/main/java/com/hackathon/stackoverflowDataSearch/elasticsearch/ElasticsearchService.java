@@ -2,12 +2,15 @@ package com.hackathon.stackoverflowDataSearch.elasticsearch;
 
 import com.hackathon.stackoverflowDataSearch.exceptions.DataSearchException;
 import com.hackathon.stackoverflowDataSearch.models.ElasticsearchRequest;
+import com.hackathon.stackoverflowDataSearch.models.Response;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Map;
 
 public class ElasticsearchService {
     private ElasticsearchClient elasticSearchClient;
@@ -16,7 +19,7 @@ public class ElasticsearchService {
         this.elasticSearchClient = ElasticsearchClient.getInstance();
     }
 
-    public SearchHits search(ElasticsearchRequest elasticsearchRequest) {
+    public Response search(ElasticsearchRequest elasticsearchRequest) {
             SearchResponse searchResponse = null;
             SearchHits searchHits = null;
             SearchRequest searchRequest = new SearchRequest(elasticsearchRequest.getIndexName());
@@ -31,6 +34,15 @@ public class ElasticsearchService {
             } catch (IOException exception) {
                 exception.printStackTrace();
             }
-            return searchResponse.getHits();
+            return convertHitsToSearchResponse(searchResponse.getHits());
+    }
+
+    private Response convertHitsToSearchResponse(SearchHits searchHits){
+        Response response = new Response();
+        response.setTotal(searchHits.getTotalHits());
+        Arrays.stream(searchHits.getHits())
+                .map(hit -> hit.getSourceAsMap())
+                .forEach(response::addData);
+        return response;
     }
 }

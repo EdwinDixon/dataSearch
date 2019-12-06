@@ -6,6 +6,7 @@ import com.hackathon.stackoverflowDataSearch.elasticsearch.ElasticsearchService;
 import com.hackathon.stackoverflowDataSearch.exceptions.DataSearchException;
 import com.hackathon.stackoverflowDataSearch.models.ElasticsearchRequest;
 import com.hackathon.stackoverflowDataSearch.models.Request;
+import com.hackathon.stackoverflowDataSearch.models.Response;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.search.SearchHits;
 
@@ -16,7 +17,7 @@ public class QuestionControllerService {
         this.elasticsearchService = new ElasticsearchService();
     }
 
-    public SearchHits listQuestions(int from, int size){
+    public Response listQuestions(int from, int size){
         ElasticsearchQueryBuilder elasticsearchQueryBuilder = new ElasticsearchQueryBuilder();
         ElasticsearchRequest elasticsearchRequest = new ElasticsearchRequest();
         elasticsearchRequest.setDocumentType(Constants.DOCUMENT_TYPE);
@@ -26,4 +27,5 @@ public class QuestionControllerService {
         elasticsearchRequest.setQuery(elasticsearchQueryBuilder.getMatchAllQuery());
         return this.elasticsearchService.search(elasticsearchRequest);
     }
+
 }
