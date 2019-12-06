@@ -17,7 +17,7 @@ public class ElasticsearchService {
     }
 
     public SearchHits search(ElasticsearchRequest elasticsearchRequest) {
-            SearchResponse searchResponse;
+            SearchResponse searchResponse = null;
             SearchHits searchHits = null;
             SearchRequest searchRequest = new SearchRequest(elasticsearchRequest.getIndexName());
             searchRequest.types(elasticsearchRequest.getDocumentType());
@@ -28,10 +28,9 @@ public class ElasticsearchService {
             searchRequest.source(searchSourceBuilder);
             try {
                 searchResponse = this.elasticSearchClient.search(searchRequest);
-                searchHits = searchResponse.getHits();
             } catch (IOException exception) {
                 exception.printStackTrace();
             }
-            return searchHits;
+            return searchResponse.getHits();
     }
 }
