@@ -7,6 +7,7 @@ import com.hackathon.stackoverflowDataSearch.services.QuestionControllerService;
 import org.elasticsearch.search.SearchHits;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class QuestionsController {
 
