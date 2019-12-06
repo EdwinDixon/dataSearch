@@ -17,14 +17,18 @@ public class QuestionControllerService {
         this.elasticsearchService = new ElasticsearchService();
     }
 
-    public Response listQuestions(int from, int size){
+    public Response listQuestions(int from, int size,String searchText){
         ElasticsearchQueryBuilder elasticsearchQueryBuilder = new ElasticsearchQueryBuilder();
         ElasticsearchRequest elasticsearchRequest = new ElasticsearchRequest();
         elasticsearchRequest.setDocumentType(Constants.DOCUMENT_TYPE);
         elasticsearchRequest.setIndexName(Constants.INDEX_NAME);
         elasticsearchRequest.setFrom(from);
         elasticsearchRequest.setSize(size);
-        elasticsearchRequest.setQuery(elasticsearchQueryBuilder.getMatchAllQuery());
+        if(searchText==null) {
+            elasticsearchRequest.setQuery(elasticsearchQueryBuilder.getMatchAllQuery());
+        } else {
+            elasticsearchRequest.setQuery(elasticsearchQueryBuilder.getTextMatchQuery(searchText));
+        }
         return this.elasticsearchService.search(elasticsearchRequest);
     }
 

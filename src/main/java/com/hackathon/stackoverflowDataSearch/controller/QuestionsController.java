@@ -15,10 +15,11 @@ public class QuestionsController {
     @RequestMapping(value = Constants.GET_QUESTIONS, method = RequestMethod.GET)
     @ResponseBody
     public Response getQuestions(@RequestParam(Constants.FROM) int from,
-                                 @RequestParam(Constants.SIZE) int size) {
+                                 @RequestParam(Constants.SIZE) int size,
+                                 @RequestParam(Constants.TEXT) String searchText) {
         try {
             QuestionControllerService questionControllerService = new QuestionControllerService();
-            return questionControllerService.listQuestions(from, size);
+            return questionControllerService.listQuestions(from, size,searchText);
         } catch(DataSearchException dataSearchException){
             System.out.println(dataSearchException);
         }

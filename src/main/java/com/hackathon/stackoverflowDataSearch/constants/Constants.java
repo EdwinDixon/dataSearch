@@ -9,8 +9,10 @@ public class Constants {
     public static final String GET_QUESTIONS = "/questions";
     public static final String FROM = "from";
     public static final String SIZE = "size";
+    public static final String TEXT = "text";
     public static final String INDEX_NAME = "stackoverflow";
     public static final String DOCUMENT_TYPE = "logs";
+    public static final String POST_BODY_FIELD = "doc.Body";
 
     public static final String INTEGER_PARSING_EXCEPTION = "Not able to parse integer from configuration file";
 
